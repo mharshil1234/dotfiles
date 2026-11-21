@@ -5,6 +5,6 @@ hl.on("hyprland.start", function ()
 
     -- Startup apps
     hl.exec_cmd("sleep 2 && hyprctl dispatch workspace 1")
-    hl.exec_cmd('sleep 2.5 && kitty --title kitty-fetch -e zsh -c "fastfetch; exec zsh -l"')
+    hl.exec_cmd('sleep 2.5 && kitty --title kitty-fetch -e fish -C fastfetch')
     hl.exec_cmd("sleep 4 && spotify-launcher")
 end)
