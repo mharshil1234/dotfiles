@@ -11,7 +11,7 @@ import Quickshell.Wayland
 /**
  * Custom low-battery warning: a large card at the top of the screen.
  * - Appears at the "low" threshold, turns red at "critical",
- *   and pulses as a final warning at finalWarningAt (default 5%).
+ *   and gets a border as a final warning at finalWarningAt (default 5%).
  * - Disappears when you plug in. Dismissable; comes back at each new level.
  * Thresholds: battery.low / battery.critical / battery.suspend in
  * ~/.config/illogical-impulse/config.json, plus finalWarningAt below.
@@ -76,14 +76,6 @@ Scope {
                 border.width: root.isFinal ? 3 : 0
                 border.color: Appearance.colors.colError
 
-                // Final warning: gentle pulse until plugged in or dismissed
-                SequentialAnimation on scale {
-                    running: root.isFinal && win.visible
-                    loops: Animation.Infinite
-                    onRunningChanged: if (!running) card.scale = 1
-                    NumberAnimation { to: 1.04; duration: 600; easing.type: Easing.InOutQuad }
-                    NumberAnimation { to: 1.0; duration: 600; easing.type: Easing.InOutQuad }
-                }
 
                 readonly property color fg: root.critical ? Appearance.colors.colOnErrorContainer : Appearance.colors.colOnLayer1
 
