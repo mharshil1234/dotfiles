@@ -16,7 +16,9 @@ Scope {
     id: root
     property bool visible: false
     readonly property MprisPlayer activePlayer: MprisController.activePlayer
-    readonly property var realPlayers: MprisController.players
+    // Custom: only show the Spotify desktop app (same rule as the bar and lock screen)
+    readonly property var realPlayers: MprisController.players.filter(p =>
+        (p.dbusName ?? "").startsWith("org.mpris.MediaPlayer2.spotify"))
     readonly property var meaningfulPlayers: filterDuplicatePlayers(realPlayers)
     readonly property real osdWidth: Appearance.sizes.osdWidth
     readonly property real widgetWidth: Appearance.sizes.mediaControlsWidth

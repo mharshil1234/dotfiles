@@ -42,3 +42,12 @@ post_hook = 'command -v spicetify >/dev/null && spicetify refresh -s -q >/dev/nu
 input_path = '~/.config/matugen/templates/vscode/ui-colors.json'
 output_path = '~/.local/state/quickshell/user/generated/vscode-ui-colors.json'
 post_hook = 'python3 ~/.config/matugen/templates/vscode/apply-ui-colors.py'
+
+[templates.mpv_uosc]
+input_path = '~/.config/matugen/templates/mpv/uosc.conf'
+output_path = '~/.config/mpv/script-opts/uosc.conf'
+
+[templates.kitty_tabs]
+input_path = '~/.config/matugen/templates/kitty/tab-colors.conf'
+output_path = '~/.config/kitty/tab-colors.conf'
+post_hook = 'pkill -USR1 -x kitty || true'
