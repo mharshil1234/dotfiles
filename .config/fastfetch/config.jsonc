@@ -2,10 +2,15 @@
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
 
 "logo": {
-  "type": "file",
-  "source": "~/.config/fastfetch/logo.txt",
+  // Glowing sword image (kitty graphics). Other terminals fall back automatically.
+  "type": "kitty-direct",
+  "source": "~/.config/fastfetch/sword.png",
+  "width": 31,
+  "height": 26,
   "padding": {
-	"top": 1
+	"top": 1,
+	"left": 2,
+	"right": 3
 	}
 },
 
