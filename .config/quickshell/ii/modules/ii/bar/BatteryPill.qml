@@ -4,8 +4,9 @@ import qs.modules.common.widgets
 import qs.modules.common.functions
 import QtQuick
 import QtQuick.Layouts
+import Quickshell.Services.UPower
 
-// Island bar battery: slim bar that fills; orange at low, red at critical, bolt while charging.
+// Island bar battery: slim bar that fills; orange at low, red at critical, amber in power-saver mode, bolt while charging.
 MouseArea {
     id: root
     readonly property real pct: Battery.percentage
@@ -13,7 +14,9 @@ MouseArea {
     readonly property color fillColor: charging ? Appearance.colors.colPrimary
         : (pct <= Config.options.battery.critical / 100) ? Appearance.colors.colError
         : (pct <= Config.options.battery.low / 100) ? "#ffb347"
+        : powerSaver ? "#f5c451" // amber: power saver on
         : Appearance.colors.colPrimary
+    readonly property bool powerSaver: PowerProfiles.profile === PowerProfile.PowerSaver
 
     implicitWidth: row.implicitWidth
     implicitHeight: 32

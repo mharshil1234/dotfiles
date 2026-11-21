@@ -16,6 +16,7 @@ Singleton {
     property bool mediaControlsOpen: false
     property bool mediaPillHovered: false // custom: hover-to-open media popup (SpotifyPill.qml)
     property bool mediaPopupHovered: false
+    property double dndUntil: 0 // custom: Do-not-disturb end time (ms since epoch), 0 = until turned off (StatusIndicators.qml)
     property bool mediaPopupByHover: false // opened by hovering (closes when the pointer leaves), not by click
     property real mediaPillX: -1 // custom: screen x of the island bar's Spotify pill (media popup lines up with it)
     property bool osdBrightnessOpen: false

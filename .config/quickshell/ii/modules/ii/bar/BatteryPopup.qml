@@ -3,6 +3,7 @@ import qs.modules.common.widgets
 import qs.services
 import QtQuick
 import QtQuick.Layouts
+import Quickshell.Services.UPower
 
 StyledPopup {
     id: root
@@ -61,6 +62,14 @@ StyledPopup {
                     return `${Battery.energyRate.toFixed(2)}W`;
                 }
             }
+        }
+
+        StyledPopupValueRow {
+            icon: PowerProfiles.profile === PowerProfile.PowerSaver ? "energy_savings_leaf"
+                : PowerProfiles.profile === PowerProfile.Performance ? "speed" : "balance"
+            label: Translation.tr("Power mode:")
+            value: PowerProfiles.profile === PowerProfile.PowerSaver ? Translation.tr("Power saver")
+                : PowerProfiles.profile === PowerProfile.Performance ? Translation.tr("Performance") : Translation.tr("Balanced")
         }
 
         StyledPopupValueRow {

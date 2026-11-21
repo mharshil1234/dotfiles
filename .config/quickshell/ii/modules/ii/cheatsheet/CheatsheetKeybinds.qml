@@ -10,9 +10,16 @@ import Quickshell
 
 Item {
     id: root
-    readonly property var keybinds: HyprlandKeybinds.keybinds.filter(function(keybind) {
-        return keybind.has_description;
-    })
+    readonly property var keybinds: { // custom: skip duplicates (same keys bound twice, e.g. the fuzzel fallbacks)
+        const seen = new Set();
+        return HyprlandKeybinds.keybinds.filter(function(keybind) {
+            if (!keybind.has_description) return false;
+            const id = `${keybind.modmask}|${keybind.key}|${keybind.mouse}`;
+            if (seen.has(id)) return false;
+            seen.add(id);
+            return true;
+        });
+    }
     property real columnSpacing: 40
     property real titleSpacing: 7
     property real padding: 4

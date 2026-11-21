@@ -1,5 +1,6 @@
 import qs.services
 import qs.modules.common
+import qs.modules.common.functions
 import qs.modules.common.widgets
 import QtQuick
 import QtQuick.Controls
@@ -74,9 +75,10 @@ Scope { // Scope
             Rectangle {
                 id: cheatsheetBackground
                 anchors.centerIn: parent
-                color: Appearance.colors.colLayer0
+                // custom: same look as the bar islands (translucent, thin outline)
+                color: ColorUtils.transparentize(Appearance.m3colors.m3surfaceContainerHigh, 0.12)
                 border.width: 1
-                border.color: Appearance.colors.colLayer0Border
+                border.color: ColorUtils.transparentize(Appearance.colors.colOutlineVariant, 0.45)
                 radius: Appearance.rounding.windowRounding
                 property real padding: 20
                 implicitWidth: cheatsheetColumnLayout.implicitWidth + padding * 2

@@ -81,3 +81,11 @@ urllib3==2.6.3
     # via requests
 wheel==0.45.1
     # via -r requirements.in
+# Added for the clock popup's calendar events (scripts/calendar/upcoming-events.py)
+icalendar==7.3.2
+python-dateutil==2.9.0.post0
+recurring-ical-events==3.8.2
+six==1.17.0
+tzdata==2026.6
+x-wr-timezone==2.0.1
+typing-extensions==4.16.0
