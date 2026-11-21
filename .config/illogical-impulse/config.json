@@ -195,7 +195,7 @@
         "critical": 10,
         "full": 80,
         "low": 20,
-        "suspend": 3
+        "suspend": 2
     },
     "calendar": {
         "locale": "en-GB"
