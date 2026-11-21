@@ -46,7 +46,7 @@ The installer is safe to re-run: it skips anything already done and lists whatev
 |---|---|---|
 | Installer | `.bootstrap/` | `install.sh`, package lists, end-4's PKGBUILDs, Python requirements, reflector config |
 | Hyprland | `.config/hypr/` | My changes are in `custom/`: startup apps, `Super+Shift+1–9`, kitty-first terminal, cursor env, hyprlock fallback. The gesture change stays in `hyprland/general.lua` because Hyprland can't remove a default gesture from `custom/`. |
-| Shell (Quickshell `ii`) | `.config/quickshell/` | Custom lock screen in `modules/ii/lock/LockSurface.qml`: centered clock, greeting, date, stats bar, a Spotify-only media card, and power buttons bottom-right |
+| Shell (Quickshell `ii`) | `.config/quickshell/` | Custom lock screen in `modules/ii/lock/LockSurface.qml`: centered clock, greeting, date, stats bar, a Spotify-only media card, and power buttons bottom-right. Custom "islands" top bar in `modules/ii/bar/IslandBarContent.qml` (to go back to the stock bar, change `IslandBarContent` to `BarContent` in `Bar.qml`) |
 | Shell settings | `.config/illogical-impulse/config.json` | Lock on startup is on; weather uses IP location (GPS off) |
 | Colors | `.config/matugen/` | Templates that turn the wallpaper into colors for every app |
 | Wallpaper | `Pictures/Wallpapers/` | |

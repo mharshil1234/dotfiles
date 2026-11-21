@@ -9,6 +9,7 @@ import qs
 import qs.services
 import qs.modules.common
 import qs.modules.common.widgets
+import qs.modules.common.functions
 
 Scope {
     id: bar
@@ -101,7 +102,7 @@ Scope {
                         }
                     }
 
-                    BarContent {
+                    IslandBarContent { // custom islands bar; change back to BarContent for the stock bar
                         id: barContent
                         
                         implicitHeight: Appearance.sizes.barHeight
@@ -178,7 +179,7 @@ Scope {
                                 }
 
                                 implicitSize: Appearance.rounding.screenRounding
-                                color: showBarBackground ? Appearance.colors.colLayer0 : "transparent"
+                                color: showBarBackground ? ColorUtils.transparentize(Appearance.m3colors.m3background, 0.5) : "transparent" // custom: match the islands bar strip
 
                                 corner: RoundCorner.CornerEnum.TopLeft
                                 states: State {
@@ -197,7 +198,7 @@ Scope {
                                     bottom: Config.options.bar.bottom ? parent.bottom : undefined
                                 }
                                 implicitSize: Appearance.rounding.screenRounding
-                                color: showBarBackground ? Appearance.colors.colLayer0 : "transparent"
+                                color: showBarBackground ? ColorUtils.transparentize(Appearance.m3colors.m3background, 0.5) : "transparent" // custom: match the islands bar strip
 
                                 corner: RoundCorner.CornerEnum.TopRight
                                 states: State {

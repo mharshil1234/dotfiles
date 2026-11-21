@@ -14,6 +14,7 @@ Singleton {
     property bool sidebarLeftOpen: false
     property bool sidebarRightOpen: false
     property bool mediaControlsOpen: false
+    property real mediaPillX: -1 // custom: screen x of the island bar's Spotify pill (media popup lines up with it)
     property bool osdBrightnessOpen: false
     property bool osdVolumeOpen: false
     property bool oskOpen: false
