@@ -68,7 +68,7 @@ Scope {
                 id: card
                 anchors.horizontalCenter: parent.horizontalCenter
                 y: 8
-                implicitWidth: Math.max(420, content.implicitWidth + 40)
+                implicitWidth: 600 // fixed so changing text never resizes the card
                 implicitHeight: content.implicitHeight + 32
                 radius: Appearance.rounding.large
                 color: root.critical ? Appearance.colors.colErrorContainer : Appearance.m3colors.m3surfaceContainer
@@ -119,6 +119,8 @@ Scope {
                                                 : Translation.tr("Low battery — %1%").arg(root.percent)
                             font.family: Appearance.font.family.title
                             font.pixelSize: Appearance.font.pixelSize.huge
+                            Layout.fillWidth: true
+                            elide: Text.ElideRight
                             font.weight: Font.DemiBold
                             color: card.fg
                         }
@@ -136,6 +138,8 @@ Scope {
                                   + (timeLeft ? " · " + timeLeft : "")
                                 : Translation.tr("Plug in your charger") + (timeLeft ? " · " + timeLeft : "")
                             font.pixelSize: Appearance.font.pixelSize.normal
+                            Layout.fillWidth: true
+                            elide: Text.ElideRight
                             color: ColorUtils.transparentize(card.fg, 0.2)
                         }
                     }
