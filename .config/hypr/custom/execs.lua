@@ -6,5 +6,5 @@ hl.on("hyprland.start", function ()
     -- Startup apps
     hl.exec_cmd("sleep 2 && hyprctl dispatch workspace 1")
     hl.exec_cmd('sleep 2.5 && kitty --title kitty-fetch -e fish -C fastfetch')
-    hl.exec_cmd("sleep 4 && spotify-launcher")
+    hl.exec_cmd("sleep 4 && command -v spotify-launcher >/dev/null && spotify-launcher") -- only if Spotify is installed
 end)

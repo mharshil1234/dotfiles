@@ -88,12 +88,22 @@ for dir in "$BOOT"/pkgbuilds/illogical-impulse-*/; do
     ) && ok "$name" || { warn "$name failed"; FAILED+=("$name"); }
 done
 
-# ── 5. My AUR apps ─────────────────────────────────────────────────────
-step "AUR apps"
+# ── 5. AUR packages for the desktop ────────────────────────────────────
+step "AUR packages"
 while read -r pkg; do
     [[ -z "$pkg" ]] && continue
     yay -S --needed --noconfirm "$pkg" >/dev/null 2>&1 && ok "$pkg" || { warn "$pkg failed"; FAILED+=("$pkg"); }
 done < "$BOOT/packages-aur.txt"
+
+# ── 5b. Personal apps (optional, not part of the repo) ─────────────────
+# Put your own apps, one per line, in ~/.bootstrap/packages-personal.txt (repo or AUR names).
+if [[ -f "$BOOT/packages-personal.txt" ]]; then
+    step "Personal apps ($(grep -c . "$BOOT/packages-personal.txt") listed)"
+    while read -r pkg; do
+        [[ -z "$pkg" ]] && continue
+        yay -S --needed --noconfirm "$pkg" >/dev/null 2>&1 && ok "$pkg" || { warn "$pkg failed"; FAILED+=("$pkg"); }
+    done < "$BOOT/packages-personal.txt"
+fi
 
 # ── 6. Quickshell Python environment ───────────────────────────────────
 step "Python environment for the shell"
@@ -162,11 +172,10 @@ ${c_info}A few things to do by hand:${c_off}
        -> automatic login, user $USER, session "Hyprland"
   4. Snapshots:  sudo timeshift-launcher
        -> RSYNC, root partition, home excluded, Daily 5 + Weekly 3
-  5. Cisco Packet Tracer isn't automated (it needs a manual download from Cisco).
-  6. Spotify theme (if the installer said it was skipped): open Spotify once and log in,
+  5. Spotify theme (if the installer said it was skipped): open Spotify once and log in,
      close it, then run:  spicetify backup apply
      Re-run that after every Spotify update.
-  7. Your git identity (kept out of the repo, in ~/.gitconfig.local):
+  6. Your git identity (kept out of the repo, in ~/.gitconfig.local):
        git config --file ~/.gitconfig.local user.name  "Your Name"
        git config --file ~/.gitconfig.local user.email "you@example.com"
 EOF
