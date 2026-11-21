@@ -1,0 +1,10 @@
+[Libinput][1739][52967][SYNA32FC:00 06CB:CEE7 Mouse]
+NaturalScroll=false
+
+[Libinput][1739][52967][SYNA32FC:00 06CB:CEE7 Touchpad]
+NaturalScroll=true
+ScrollFactor=0.3
+
+[Mouse]
+cursorSize=24
+cursorTheme=Bibata-Modern-Classic
