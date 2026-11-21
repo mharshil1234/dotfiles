@@ -1,7 +1,7 @@
 hl.config({
     general = {
         col = {
-            active_border   = "rgba({{colors.outline_variant.default.hex_stripped}}77)",
+            active_border   = { colors = { "rgba({{colors.primary.default.hex_stripped}}77)", "rgba({{colors.tertiary.default.hex_stripped}}55)" }, angle = 45 }, -- wallpaper accent gradient
             inactive_border = "rgba({{colors.surface_container_low.default.hex_stripped}}33)",
         },
     },

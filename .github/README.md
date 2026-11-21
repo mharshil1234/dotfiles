@@ -54,15 +54,16 @@ The installer is safe to re-run: it skips anything already done and lists whatev
 | Area | Where | Notes |
 |---|---|---|
 | Installer | `.bootstrap/` | `install.sh`, package lists, end-4's PKGBUILDs, Python requirements, reflector config |
-| Hyprland | `.config/hypr/` | My changes are in `custom/`: startup apps, `Super+Shift+1–9`, kitty-first terminal, cursor env, hyprlock fallback. The gesture change stays in `hyprland/general.lua` because Hyprland can't remove a default gesture from `custom/`. |
+| Hyprland | `.config/hypr/` | My changes are in `custom/`: 1px focused-window border in a wallpaper-accent gradient, startup apps, `Super+Shift+1–9`, kitty-first terminal, cursor env, hyprlock fallback. The gesture change stays in `hyprland/general.lua` because Hyprland can't remove a default gesture from `custom/`. |
 | Top bar | `.config/quickshell/ii/modules/ii/bar/` | Custom "islands" bar (`IslandBarContent.qml` + `IslandWorkspaces`, `WindowInfo`, `SpotifyPill`, `StatusIndicators`, `BatteryPill`): launcher, window title on an 82% strip, CPU/RAM/swap rings, workspaces with app icons (numbers over the icons while Super is held), Spotify pill whose click opens the media popup under it, screenshot/keyboard/dark-mode tools, status icons, battery bar, stacked clock. To go back to the stock bar, change `IslandBarContent` to `BarContent` in `Bar.qml`. |
+| Pop-ups | `.config/quickshell/ii/modules/ii/onScreenDisplay/OsdValueIndicator.qml`, `modules/common/widgets/NotificationGroup.qml` | Volume/brightness pop-up and notification pop-ups styled like the bar islands (82% translucent, thin outline); urgent notifications get a red stripe |
 | Lock screen | `.config/quickshell/ii/modules/ii/lock/LockSurface.qml` | Centered clock, greeting, date, stats bar, a Spotify-only media card, power buttons bottom-right. Also shown at boot (auto-login + lock on startup). |
 | Battery alerts | `.config/quickshell/ii/modules/ii/batteryWarning/` | Card at the top of the screen at 20% / 10% / 5%, suspend at 2%, "unplug" note at 80% |
 | Media | `.config/quickshell/ii/modules/ii/mediaControls/` | Media popup and bar show Spotify only |
 | Shell settings | `.config/illogical-impulse/config.json` | Battery thresholds, lock on startup, weather by IP location (GPS off) |
 | Colors | `.config/matugen/` | Templates that turn the wallpaper into colors for every app (see Notes) |
 | Wallpaper | `Pictures/Wallpapers/` | |
-| Terminal | `.config/kitty/`, `.config/foot/`, `.config/fish/`, `.config/starship.toml`, `.config/fastfetch/` | kitty at 0.82 opacity with rounded tabs in wallpaper colors; fish for interactive use (bash stays the login shell), with a notification when a command of 15 s+ finishes in a terminal you're not looking at; fastfetch with the sword image logo (`sword.png`, dimmed to 70%) |
+| Terminal | `.config/kitty/`, `.config/foot/`, `.config/fish/`, `.config/starship.toml`, `.config/fastfetch/` | kitty at 0.82 opacity with rounded tabs in wallpaper colors; fish for interactive use (bash stays the login shell), a starship prompt of rounded pills in wallpaper colors (folder, git branch, git status, time for commands of 2 s+, exit code on failure), with a notification when a command of 15 s+ finishes in a terminal you're not looking at; fastfetch with the sword image logo (`sword.png`, dimmed to 70%) |
 | Spotify | `.config/spicetify/` | Spicetify MaterialYou theme, colors from the wallpaper, rounded corners. The Spotify window is 82% opaque like the terminal |
 | VS Code | `.config/Code - OSS/User/settings.json`, `.config/code-flags.conf` | Default Dark Modern with UI accents from the wallpaper (code area untouched), JetBrains Mono. The window is 96% opaque |
 | Video | `.config/mpv/` | uosc controls (wallpaper colors) + thumbfast seek-bar previews |
@@ -112,5 +113,5 @@ Not sure what changed? `dots diff --stat ORIG_HEAD HEAD` lists every file the pu
 - or drop them: `dots checkout -- <file>`, then `dots pull`
 
 ## Notes
-- **Colors:** they come from the wallpaper. Changing the wallpaper (or dark/light mode) regenerates colors for the shell and bar, GTK, Qt, kitty (including tabs), Hyprland, Spotify, VS Code and mpv. Because of that, `gtk-4.0/gtk.css` and Spotify's `color.ini` change with every wallpaper switch; committing them is optional.
+- **Colors:** they come from the wallpaper. Changing the wallpaper (or dark/light mode) regenerates colors for the shell and bar, GTK, Qt, kitty (including tabs and the prompt), Hyprland (including window borders), Spotify, VS Code and mpv. Because of that, `gtk-4.0/gtk.css` and Spotify's `color.ini` change with every wallpaper switch; committing them is optional.
 - **Secrets:** none are stored here. The shell keeps API keys in the system keyring.

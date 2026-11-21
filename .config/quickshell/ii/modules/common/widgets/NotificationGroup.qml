@@ -121,9 +121,22 @@ MouseArea { // Notification group area
         id: background
         anchors.left: parent.left
         width: parent.width
-        color: popup ? Appearance.colors.colBackgroundSurfaceContainer : Appearance.colors.colLayer2
-        radius: Appearance.rounding.normal
+        // Pop-ups look like the top bar's islands: 82% translucent, thin outline, rounder corners
+        color: popup ? ColorUtils.transparentize(Appearance.m3colors.m3surfaceContainerHigh, 0.18) : Appearance.colors.colLayer2
+        radius: popup ? Appearance.rounding.large : Appearance.rounding.normal
+        border.width: popup ? 1 : 0
+        border.color: ColorUtils.transparentize(Appearance.colors.colOutlineVariant, 0.45)
         anchors.leftMargin: root.xOffset
+
+        Rectangle { // Accent stripe on urgent pop-ups
+            visible: root.popup && root.notifications.some(n => n.urgency === NotificationUrgency.Critical.toString())
+            x: 4
+            anchors.verticalCenter: parent.verticalCenter
+            width: 3
+            height: parent.height - 24
+            radius: 2
+            color: Appearance.colors.colError
+        }
 
         Behavior on anchors.leftMargin {
             enabled: !dragManager.dragging
