@@ -45,14 +45,21 @@ The installer is safe to re-run: it skips anything already done and lists whatev
 | Area | Where | Notes |
 |---|---|---|
 | Installer | `.bootstrap/` | `install.sh`, package lists, end-4's PKGBUILDs, Python requirements, reflector config |
-| Hyprland | `.config/hypr/` | My changes are in `custom/`: startup apps, `Super+Shift+1–9`, kitty-first terminal, cursor env, hyprlock fallback. The gesture change stays in `hyprland/general.lua` because Hyprland can't remove a default gesture from `custom/`. |
-| Shell (Quickshell `ii`) | `.config/quickshell/` | Custom lock screen in `modules/ii/lock/LockSurface.qml`: centered clock, greeting, date, stats bar, a Spotify-only media card, and power buttons bottom-right. Custom "islands" top bar in `modules/ii/bar/IslandBarContent.qml` (to go back to the stock bar, change `IslandBarContent` to `BarContent` in `Bar.qml`) |
-| Shell settings | `.config/illogical-impulse/config.json` | Lock on startup is on; weather uses IP location (GPS off) |
-| Colors | `.config/matugen/` | Templates that turn the wallpaper into colors for every app |
+| Hyprland | `.config/hypr/` | My changes are in `custom/`: startup apps, `Super+Shift+1–9`, kitty-first terminal, cursor env, hyprlock fallback, Spotify window at 0.82 opacity. The gesture change stays in `hyprland/general.lua` because Hyprland can't remove a default gesture from `custom/`. |
+| Top bar | `.config/quickshell/ii/modules/ii/bar/` | Custom "islands" bar (`IslandBarContent.qml` + `IslandWorkspaces`, `WindowInfo`, `SpotifyPill`, `StatusIndicators`, `BatteryPill`): launcher, window title on an 82% strip, CPU/RAM/swap rings, workspaces with app icons (numbers over the icons while Super is held), Spotify pill whose click opens the media popup under it, screenshot/keyboard/dark-mode tools, status icons, battery bar, stacked clock. To go back to the stock bar, change `IslandBarContent` to `BarContent` in `Bar.qml`. |
+| Lock screen | `.config/quickshell/ii/modules/ii/lock/LockSurface.qml` | Centered clock, greeting, date, stats bar, a Spotify-only media card, power buttons bottom-right. Also shown at boot (auto-login + lock on startup). |
+| Battery alerts | `.config/quickshell/ii/modules/ii/batteryWarning/` | Card at the top of the screen at 20% / 10% / 5%, suspend at 2%, "unplug" note at 80% |
+| Media | `.config/quickshell/ii/modules/ii/mediaControls/` | Media popup and bar show Spotify only |
+| Shell settings | `.config/illogical-impulse/config.json` | Battery thresholds, lock on startup, weather by IP location (GPS off) |
+| Colors | `.config/matugen/` | Templates that turn the wallpaper into colors for every app (see Notes) |
 | Wallpaper | `Pictures/Wallpapers/` | |
-| Terminal | `.config/kitty/`, `.config/foot/`, `.config/fish/`, `.config/starship.toml`, `.config/fastfetch/` | fish for interactive use; bash stays the login shell |
-| Theme | `.config/gtk-3.0/`, `.config/gtk-4.0/`, `.config/Kvantum/`, `.config/kdeglobals`, `.config/darklyrc`, `.config/kcminputrc`, `.config/qt6ct/`, `.config/xsettingsd/`, `.gtkrc-2.0`, `.icons/default/` | adw-gtk3 with wallpaper colors, Bibata-Modern-Classic cursor |
-| Other | `.config/fuzzel/`, `.config/wlogout/`, `.config/mpv/`, `.config/fontconfig/`, `.config/xdg-desktop-portal/`, `.local/share/konsole/`, shell rc files, `.gitconfig`, `mimeapps.list`, browser flags | |
+| Terminal | `.config/kitty/`, `.config/foot/`, `.config/fish/`, `.config/starship.toml`, `.config/fastfetch/` | kitty at 0.82 opacity with rounded tabs in wallpaper colors; fish for interactive use (bash stays the login shell), with a notification when a command of 15 s+ finishes in a terminal you're not looking at; fastfetch with the sword image logo (`sword.png`, dimmed to 70%) |
+| Spotify | `.config/spicetify/` | Spicetify MaterialYou theme, colors from the wallpaper, rounded corners |
+| VS Code | `.config/Code - OSS/User/settings.json` | Default Dark Modern with UI accents from the wallpaper (code area untouched), JetBrains Mono |
+| Video | `.config/mpv/` | uosc controls (wallpaper colors) + thumbfast seek-bar previews |
+| Other apps | `.config/btop/`, `.config/darklyrc` | btop with terminal colors and transparent background; Dolphin 80% translucent |
+| Theme | `.config/gtk-3.0/`, `.config/gtk-4.0/`, `.config/Kvantum/`, `.config/kdeglobals`, `.config/qt6ct/`, `.config/xsettingsd/`, `.gtkrc-2.0`, `.icons/default/`, `.config/kcminputrc` | adw-gtk3 with wallpaper colors, Bibata-Modern-Classic cursor |
+| Other | `.config/fuzzel/`, `.config/wlogout/`, `.config/fontconfig/`, `.config/xdg-desktop-portal/`, `.local/share/konsole/`, shell rc files, `.gitconfig`, `mimeapps.list`, browser flags | |
 
 ## Daily use
 
@@ -78,6 +85,6 @@ The shell code and recipes are a snapshot of end-4's repo, so they don't update 
 3. Run `dots diff`, put back anything of mine that got overwritten (most likely the lock screen QML and `hyprland/general.lua`) with `dots checkout -- <file>`, then commit.
 
 ## Notes
-- **Colors:** they come from the wallpaper. Changing the wallpaper in the shell regenerates colors for the shell, GTK, Qt, kitty and Hyprland.
+- **Colors:** they come from the wallpaper. Changing the wallpaper (or dark/light mode) regenerates colors for the shell and bar, GTK, Qt, kitty (including tabs), Hyprland, Spotify, VS Code and mpv. Because of that, `gtk-4.0/gtk.css` and Spotify's `color.ini` change with every wallpaper switch; committing them is optional.
 - **Hardware:** the package list matches my laptop (Intel CPU and GPU drivers, `intel-ucode`). On other hardware, edit `packages-repo.txt` first.
 - **Secrets:** none are stored here. The shell keeps API keys in the system keyring.
