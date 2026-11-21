@@ -10,20 +10,25 @@ import Quickshell.Wayland
 
 /**
  * Custom low-battery warning: a large card at the top of the screen.
- * - Appears at the "low" threshold, turns red at "critical".
- * - Disappears when you plug in. Dismissable; comes back at critical.
- * Thresholds live in Settings (battery.low / battery.critical / battery.suspend).
+ * - Appears at the "low" threshold, turns red at "critical",
+ *   and pulses as a final warning at finalWarningAt (default 5%).
+ * - Disappears when you plug in. Dismissable; comes back at each new level.
+ * Thresholds: battery.low / battery.critical / battery.suspend in
+ * ~/.config/illogical-impulse/config.json, plus finalWarningAt below.
  */
 Scope {
     id: root
 
-    readonly property string level: Battery.isCriticalAndNotCharging ? "critical"
+    readonly property int finalWarningAt: 5 // %, last warning before auto-suspend
+    readonly property string level: (Battery.available && !Battery.isCharging && percent <= finalWarningAt) ? "final"
+        : Battery.isCriticalAndNotCharging ? "critical"
         : Battery.isLowAndNotCharging ? "low" : "none"
     property bool dismissed: false
     onLevelChanged: dismissed = false // re-show when it gets worse (or after charging)
 
     readonly property bool shown: level !== "none" && !dismissed && !GlobalStates.screenLocked
-    readonly property bool critical: level === "critical"
+    readonly property bool critical: level === "critical" || level === "final"
+    readonly property bool isFinal: level === "final"
     readonly property int percent: Math.round(Battery.percentage * 100)
 
     function formatTimeLeft(seconds) {
@@ -68,6 +73,17 @@ Scope {
                 radius: Appearance.rounding.large
                 color: root.critical ? Appearance.colors.colErrorContainer : Appearance.m3colors.m3surfaceContainer
                 Behavior on color { ColorAnimation { duration: 300 } }
+                border.width: root.isFinal ? 3 : 0
+                border.color: Appearance.colors.colError
+
+                // Final warning: gentle pulse until plugged in or dismissed
+                SequentialAnimation on scale {
+                    running: root.isFinal && win.visible
+                    loops: Animation.Infinite
+                    onRunningChanged: if (!running) card.scale = 1
+                    NumberAnimation { to: 1.04; duration: 600; easing.type: Easing.InOutQuad }
+                    NumberAnimation { to: 1.0; duration: 600; easing.type: Easing.InOutQuad }
+                }
 
                 readonly property color fg: root.critical ? Appearance.colors.colOnErrorContainer : Appearance.colors.colOnLayer1
 
@@ -106,7 +122,8 @@ Scope {
                         spacing: 2
 
                         StyledText {
-                            text: root.critical ? Translation.tr("Battery critical — %1%").arg(root.percent)
+                            text: root.isFinal ? Translation.tr("Suspending soon — %1%").arg(root.percent)
+                                : root.critical ? Translation.tr("Battery critical — %1%").arg(root.percent)
                                                 : Translation.tr("Low battery — %1%").arg(root.percent)
                             font.family: Appearance.font.family.title
                             font.pixelSize: Appearance.font.pixelSize.huge
@@ -115,7 +132,12 @@ Scope {
                         }
                         StyledText {
                             readonly property string timeLeft: root.formatTimeLeft(Battery.timeToEmpty)
-                            text: root.critical
+                            text: root.isFinal
+                                ? (Config.options.battery.automaticSuspend
+                                    ? Translation.tr("Save your work. Suspending at %1%").arg(Config.options.battery.suspend)
+                                    : Translation.tr("Save your work and plug in"))
+                                  + (timeLeft ? " · " + timeLeft : "")
+                                : root.critical
                                 ? (Config.options.battery.automaticSuspend
                                     ? Translation.tr("Plug in now. Suspending at %1%").arg(Config.options.battery.suspend)
                                     : Translation.tr("Plug in now"))
