@@ -78,11 +78,18 @@ pacman -Qqen | grep -vx tlp | sort > ~/.bootstrap/packages-repo.txt
 pacman -Qqem | grep -vE '^(illogical-impulse-|yay$|packettracer$)|-debug$' | sort > ~/.bootstrap/packages-aur.txt
 ```
 
-### Updating the end-4 parts
-The shell code and recipes are a snapshot of end-4's repo, so they don't update by themselves. To pull in upstream changes:
-1. Clone or pull end-4's repo somewhere temporary.
-2. Copy over what you want: `dots/.config/quickshell/` and the PKGBUILDs from `sdata/dist-arch/`.
-3. Run `dots diff`, put back anything of mine that got overwritten (most likely the lock screen QML and `hyprland/general.lua`) with `dots checkout -- <file>`, then commit.
+### Getting my latest changes on another install
+After I change something and run `dots push`, update any other machine (or a fresh install) with:
+```bash
+dots pull                   # get the latest dotfiles
+bash ~/.bootstrap/install.sh  # only if packages or the installer changed; safe to re-run
+~/.config/quickshell/ii/scripts/colors/switchwall.sh --noswitch   # regenerate colors
+```
+The shell reloads by itself when its files change. If it doesn't, restart it:
+`qs -c ii kill; hyprctl dispatch 'hl.dsp.exec_cmd("qs -c ii")'`.
+For Hyprland changes, run `hyprctl reload`.
+
+If `dots pull` refuses because of local changes, keep them with `dots stash`, run `dots pull`, then `dots stash pop`. Or throw them away with `dots checkout -- <file>`.
 
 ## Notes
 - **Colors:** they come from the wallpaper. Changing the wallpaper (or dark/light mode) regenerates colors for the shell and bar, GTK, Qt, kitty (including tabs), Hyprland, Spotify, VS Code and mpv. Because of that, `gtk-4.0/gtk.css` and Spotify's `color.ini` change with every wallpaper switch; committing them is optional.
