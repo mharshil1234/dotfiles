@@ -89,18 +89,27 @@ pacman -Qqen | grep -vx tlp | grep -vxF -f packages-personal.txt | sort > packag
 pacman -Qqem | grep -vE '^(illogical-impulse-|yay$)|-debug$' | grep -vxF -f packages-personal.txt | sort > packages-aur.txt
 ```
 
-### Getting my latest changes on another install
-After I change something and run `dots push`, update any other machine (or a fresh install) with:
-```bash
-dots pull                   # get the latest dotfiles
-bash ~/.bootstrap/install.sh  # only if packages or the installer changed; safe to re-run
-~/.config/quickshell/ii/scripts/colors/switchwall.sh --noswitch   # regenerate colors
-```
-The shell reloads by itself when its files change. If it doesn't, restart it:
-`qs -c ii kill; hyprctl dispatch 'hl.dsp.exec_cmd("qs -c ii")'`.
-For Hyprland changes, run `hyprctl reload`.
+### Updating
+Already installed? Pull in the latest changes with:
 
-If `dots pull` refuses because of local changes, keep them with `dots stash`, run `dots pull`, then `dots stash pop`. Or throw them away with `dots checkout -- <file>`.
+```bash
+dots pull
+```
+
+Then, depending on what changed:
+
+| If the update touched… | Run |
+|---|---|
+| Packages or the installer (`.bootstrap/`) | `bash ~/.bootstrap/install.sh`. Safe to re-run; it skips what's already done |
+| Colors or color templates (`.config/matugen/`) | `~/.config/quickshell/ii/scripts/colors/switchwall.sh --noswitch` |
+| Hyprland (`.config/hypr/`) | `hyprctl reload` |
+| The shell or bar (`.config/quickshell/`) | Nothing. It reloads by itself. If it doesn't: `qs -c ii kill; hyprctl dispatch 'hl.dsp.exec_cmd("qs -c ii")'` |
+
+Not sure what changed? `dots diff --stat ORIG_HEAD HEAD` lists every file the pull updated.
+
+**If `dots pull` refuses** because you've changed some of the same files:
+- keep your changes: `dots stash`, then `dots pull`, then `dots stash pop`
+- or drop them: `dots checkout -- <file>`, then `dots pull`
 
 ## Notes
 - **Colors:** they come from the wallpaper. Changing the wallpaper (or dark/light mode) regenerates colors for the shell and bar, GTK, Qt, kitty (including tabs), Hyprland, Spotify, VS Code and mpv. Because of that, `gtk-4.0/gtk.css` and Spotify's `color.ini` change with every wallpaper switch; committing them is optional.
