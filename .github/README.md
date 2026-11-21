@@ -64,7 +64,7 @@ The installer is safe to re-run: it skips anything already done and lists whatev
 | Wallpaper | `Pictures/Wallpapers/` | |
 | Terminal | `.config/kitty/`, `.config/foot/`, `.config/fish/`, `.config/starship.toml`, `.config/fastfetch/` | kitty at 0.82 opacity with rounded tabs in wallpaper colors; fish for interactive use (bash stays the login shell), with a notification when a command of 15 s+ finishes in a terminal you're not looking at; fastfetch with the sword image logo (`sword.png`, dimmed to 70%) |
 | Spotify | `.config/spicetify/` | Spicetify MaterialYou theme, colors from the wallpaper, rounded corners. The Spotify window is 82% opaque like the terminal |
-| VS Code | `.config/Code - OSS/User/settings.json`, `.config/code-flags.conf` | Default Dark Modern with UI accents from the wallpaper (code area untouched), JetBrains Mono |
+| VS Code | `.config/Code - OSS/User/settings.json`, `.config/code-flags.conf` | Default Dark Modern with UI accents from the wallpaper (code area untouched), JetBrains Mono. The window is 96% opaque |
 | Video | `.config/mpv/` | uosc controls (wallpaper colors) + thumbfast seek-bar previews |
 | System monitor | `.config/btop/` | btop with terminal colors and a transparent background |
 | File manager | `.config/darklyrc` | Dolphin 80% translucent |
