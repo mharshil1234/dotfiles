@@ -52,28 +52,14 @@ Singleton {
 
     onIsLowAndNotChargingChanged: {
         if (!root.available || !isLowAndNotCharging) return;
-        Quickshell.execDetached([
-            "notify-send", 
-            Translation.tr("Low battery"), 
-            Translation.tr("Consider plugging in your device"), 
-            "-u", "critical",
-            "-a", "Shell",
-            "--hint=int:transient:1",
-        ])
+        // Visual alert is the custom card in modules/ii/batteryWarning
 
         if (root.soundEnabled) Audio.playSystemSound("dialog-warning");
     }
 
     onIsCriticalAndNotChargingChanged: {
         if (!root.available || !isCriticalAndNotCharging) return;
-        Quickshell.execDetached([
-            "notify-send", 
-            Translation.tr("Critically low battery"), 
-            Translation.tr("Please charge!\nAutomatic suspend triggers at %1%").arg(Config.options.battery.suspend), 
-            "-u", "critical",
-            "-a", "Shell",
-            "--hint=int:transient:1",
-        ]);
+        // Visual alert is the custom card in modules/ii/batteryWarning
 
         if (root.soundEnabled) Audio.playSystemSound("suspend-error");
     }
@@ -88,8 +74,8 @@ Singleton {
         if (!root.available || !isFullAndCharging) return;
         Quickshell.execDetached([
             "notify-send",
-            Translation.tr("Battery full"),
-            Translation.tr("Please unplug the charger"),
+            Translation.tr("Battery at %1%").arg(Config.options.battery.full),
+            Translation.tr("Unplug the charger to protect battery health"),
             "-a", "Shell",
             "--hint=int:transient:1",
         ]);

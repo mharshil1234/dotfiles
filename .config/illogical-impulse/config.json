@@ -192,10 +192,10 @@
     },
     "battery": {
         "automaticSuspend": true,
-        "critical": 5,
-        "full": 101,
-        "low": 10,
-        "suspend": 3
+        "critical": 10,
+        "full": 80,
+        "low": 20,
+        "suspend": 5
     },
     "calendar": {
         "locale": "en-GB"
