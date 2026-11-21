@@ -14,6 +14,9 @@
 	}
 },
 
+  // Cut off long lines instead of wrapping them onto the logo in narrow windows
+  "display": { "disableLinewrap": true },
+
   "modules": [
     "title",
     "separator",
@@ -27,7 +30,8 @@
     "de",
     "wm",
     "wmtheme",
-    "theme",
+    // Just the GTK theme (the stock line also lists a long GTK2 leftover and wraps in half-width windows)
+    { "type": "command", "key": "Theme", "text": "gsettings get org.gnome.desktop.interface gtk-theme | tr -d \"'\"" },
     "icons",
     "font",
     "cursor",

@@ -5,6 +5,6 @@ hl.on("hyprland.start", function ()
 
     -- Startup apps
     hl.exec_cmd("sleep 2 && hyprctl dispatch workspace 1")
-    hl.exec_cmd('sleep 2.5 && kitty --title kitty-fetch -e fish -C fastfetch')
+    hl.exec_cmd("sleep 2.5 && kitty --title kitty-fetch -e sh -c 'fish -c fastfetch; exec fish'") -- fastfetch before the interactive fish starts: its first prompt erases images drawn during its startup
     hl.exec_cmd("sleep 4 && command -v spotify-launcher >/dev/null && spotify-launcher") -- only if Spotify is installed
 end)
