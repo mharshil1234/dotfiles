@@ -1,2 +1,11 @@
 [Style]
+DisableDolphinUrlNavigatorBackground=true
+DockWidgetDrawFrame=false
+DolphinSidebarOpacity=80
+DolphinViewOpacity=80
+MenuBarOpacity=80
+MenuOpacity=85
+TabBarOpacity=80
+ToolBarOpacity=80
+TransparentDolphinView=true
 WidgetDrawShadow=false

@@ -1,0 +1,5 @@
+/* Material You for Spotify: colors come from color.ini (wallpaper), shapes rounded to match the shell */
+.main-rootlist-rootlistDividerGradient, .main-entityHeader-backgroundColor, .main-actionBarBackground-background { background: none !important; }
+.main-card-card, .main-trackList-trackListRow, .x-categoryCard-CategoryCard { border-radius: 16px !important; }
+.main-nowPlayingBar-container, .Root__nav-bar, .Root__main-view, .Root__right-sidebar { border-radius: 20px !important; }
+button[data-encore-id="buttonPrimary"] > span { border-radius: 9999px !important; }
