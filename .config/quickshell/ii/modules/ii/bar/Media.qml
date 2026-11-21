@@ -12,7 +12,9 @@ import Quickshell.Hyprland
 Item {
     id: root
     property bool borderless: Config.options.bar.borderless
-    readonly property MprisPlayer activePlayer: MprisController.activePlayer
+    // Custom: only follow the Spotify desktop app (same rule as the lock screen)
+    readonly property MprisPlayer activePlayer: Mpris.players.values.find(p =>
+        (p.dbusName ?? "").startsWith("org.mpris.MediaPlayer2.spotify")) ?? null
     readonly property string cleanedTitle: StringUtils.cleanMusicTitle(activePlayer?.trackTitle) || Translation.tr("No media")
 
     Layout.fillHeight: true
@@ -23,7 +25,7 @@ Item {
         running: activePlayer?.playbackState == MprisPlaybackState.Playing
         interval: Config.options.resources.updateInterval
         repeat: true
-        onTriggered: activePlayer.positionChanged()
+        onTriggered: activePlayer?.positionChanged()
     }
 
     MouseArea {
@@ -31,11 +33,11 @@ Item {
         acceptedButtons: Qt.MiddleButton | Qt.BackButton | Qt.ForwardButton | Qt.RightButton | Qt.LeftButton
         onPressed: (event) => {
             if (event.button === Qt.MiddleButton) {
-                activePlayer.togglePlaying();
+                activePlayer?.togglePlaying();
             } else if (event.button === Qt.BackButton) {
-                activePlayer.previous();
+                activePlayer?.previous();
             } else if (event.button === Qt.ForwardButton || event.button === Qt.RightButton) {
-                activePlayer.next();
+                activePlayer?.next();
             } else if (event.button === Qt.LeftButton) {
                 GlobalStates.mediaControlsOpen = !GlobalStates.mediaControlsOpen
             }
