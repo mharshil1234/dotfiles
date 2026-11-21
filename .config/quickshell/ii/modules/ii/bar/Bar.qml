@@ -179,7 +179,7 @@ Scope {
                                 }
 
                                 implicitSize: Appearance.rounding.screenRounding
-                                color: showBarBackground ? ColorUtils.transparentize(Appearance.m3colors.m3background, 0.5) : "transparent" // custom: match the islands bar strip
+                                color: showBarBackground ? ColorUtils.transparentize(Appearance.m3colors.m3background, 0.18) : "transparent" // custom: match the islands bar strip
 
                                 corner: RoundCorner.CornerEnum.TopLeft
                                 states: State {
@@ -198,7 +198,7 @@ Scope {
                                     bottom: Config.options.bar.bottom ? parent.bottom : undefined
                                 }
                                 implicitSize: Appearance.rounding.screenRounding
-                                color: showBarBackground ? ColorUtils.transparentize(Appearance.m3colors.m3background, 0.5) : "transparent" // custom: match the islands bar strip
+                                color: showBarBackground ? ColorUtils.transparentize(Appearance.m3colors.m3background, 0.18) : "transparent" // custom: match the islands bar strip
 
                                 corner: RoundCorner.CornerEnum.TopRight
                                 states: State {

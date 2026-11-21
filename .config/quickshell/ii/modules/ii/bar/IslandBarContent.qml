@@ -29,7 +29,7 @@ Item {
     readonly property real islandHeight: 32
     readonly property real gap: 8
     readonly property real edge: 10
-    readonly property color colIsland: ColorUtils.transparentize(Appearance.m3colors.m3surfaceContainer, 0.18)
+    readonly property color colIsland: ColorUtils.transparentize(Appearance.m3colors.m3surfaceContainerHigh, 0.18) // one step lighter than the strip
     readonly property color colIslandBorder: ColorUtils.transparentize(Appearance.colors.colOutlineVariant, 0.45)
     readonly property color colText: Appearance.colors.colOnLayer0
     readonly property color colDim: Appearance.colors.colSubtext
@@ -92,10 +92,10 @@ Item {
         }
     }
 
-    // ── Full-width background strip, 50% opaque ─────────────────────────
+    // ── Full-width background strip, 82% opaque (same as kitty) ─────────────────────────
     Rectangle {
         anchors.fill: parent
-        color: ColorUtils.transparentize(Appearance.m3colors.m3background, 0.5)
+        color: ColorUtils.transparentize(Appearance.m3colors.m3background, 0.18)
     }
 
     // ── Left half: launcher + window, resources ─────────────────────────
@@ -123,21 +123,20 @@ Item {
             anchors { left: parent.left; leftMargin: root.edge; verticalCenter: parent.verticalCenter }
             spacing: root.gap
 
-            // Launcher + active window
+            // Launcher
             Island {
                 padding: 4
-                RowLayout {
+                LeftSidebarButton {
                     anchors.verticalCenter: parent.verticalCenter
-                    spacing: 8
-                    LeftSidebarButton {
-                        Layout.alignment: Qt.AlignVCenter
-                        colBackground: ColorUtils.transparentize(Appearance.colors.colPrimary, 0.82)
-                    }
-                    WindowInfo {
-                        Layout.alignment: Qt.AlignVCenter
-                        Layout.rightMargin: 10
-                    }
+                    colBackground: ColorUtils.transparentize(Appearance.colors.colPrimary, 0.82)
                 }
+            }
+
+            // Active window, directly on the bar background
+            WindowInfo {
+                Layout.alignment: Qt.AlignVCenter
+                Layout.leftMargin: 2
+                Layout.rightMargin: 6
             }
 
             // Resources: three ring gauges
