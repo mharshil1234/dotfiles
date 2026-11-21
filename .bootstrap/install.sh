@@ -44,6 +44,16 @@ if ! dots checkout 2>/dev/null; then
 fi
 ok "Dotfiles in place"
 
+# A few generated settings files store absolute paths from the machine they came from.
+# Point them at this user's home folder instead.
+for f in .config/illogical-impulse/config.json .config/hypr/hyprlock/colors.conf .config/spicetify/config-xpui.ini; do
+    [[ -f "$HOME/$f" ]] && sed -i -E "s#/home/[^/\"]+/#$HOME/#g" "$HOME/$f"
+done
+ok "Paths set to $HOME"
+if ! git config user.name >/dev/null; then
+    warn "Git doesn't know your name yet (see the list at the end)"
+fi
+
 BOOT="$HOME/.bootstrap"
 
 # ── 2. yay (AUR helper) ────────────────────────────────────────────────
@@ -156,4 +166,7 @@ ${c_info}A few things to do by hand:${c_off}
   6. Spotify theme (if the installer said it was skipped): open Spotify once and log in,
      close it, then run:  spicetify backup apply
      Re-run that after every Spotify update.
+  7. Your git identity (kept out of the repo, in ~/.gitconfig.local):
+       git config --file ~/.gitconfig.local user.name  "Your Name"
+       git config --file ~/.gitconfig.local user.email "you@example.com"
 EOF

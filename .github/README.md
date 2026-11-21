@@ -14,10 +14,8 @@ git clone https://github.com/mharshil1234/dotfiles /tmp/dotfiles
 bash /tmp/dotfiles/.bootstrap/install.sh
 ```
 
-The repo is private, so `git clone` asks you to sign in. Use your GitHub username with a [personal access token](https://github.com/settings/tokens) as the password, or run `gh auth login` first.
-
 ### What the installer does
-1. **Restores the dotfiles** into your home folder as a bare repo (`~/.dotfiles`). Any default files in the way are moved to `~/.dotfiles-conflicts/`.
+1. **Restores the dotfiles** into your home folder as a bare repo (`~/.dotfiles`). Any default files in the way are moved to `~/.dotfiles-conflicts/`. Paths in a few generated settings files are pointed at your own home folder.
 2. **Installs yay** (AUR helper).
 3. **Installs my official-repo packages** from `.bootstrap/packages-repo.txt`, skipping any that no longer exist.
 4. **Builds the desktop packages** from `.bootstrap/pkgbuilds/` (Hyprland, Quickshell, fonts, themes, portals, screenshot tools and so on).
@@ -39,6 +37,18 @@ The installer is safe to re-run: it skips anything already done and lists whatev
 4. **Snapshots:** run `sudo timeshift-launcher`, choose RSYNC on the root partition, exclude home folders, and schedule Daily (keep 5) and Weekly (keep 3).
 5. **Cisco Packet Tracer** needs a manual download from Cisco.
 6. **Spotify theme:** if the installer skipped it, open Spotify once and log in, close it, then run `spicetify backup apply`. Run that again after every Spotify update.
+7. **Your git identity:** it's kept out of the repo, in `~/.gitconfig.local`:
+   ```bash
+   git config --file ~/.gitconfig.local user.name  "Your Name"
+   git config --file ~/.gitconfig.local user.email "you@example.com"
+   ```
+
+### Make it yours
+- **Hardware:** the package list matches my laptop (Intel CPU/GPU, `intel-ucode`). On AMD or NVIDIA, edit `.bootstrap/packages-repo.txt` before installing.
+- **Mirrors:** `.bootstrap/system/reflector.conf` picks India/Singapore mirrors. Change `--country` to yours.
+- **Apps:** remove anything you don't want from `.bootstrap/packages-aur.txt` (browsers, Postman, …).
+- **Wallpaper and colors:** pick a wallpaper in the shell; every app recolors to match.
+- **Your own copy:** fork this repo, and set `DOTFILES_REPO=https://github.com/<you>/dotfiles.git` when running the installer so `dots push` goes to your fork.
 
 ## What's in here
 
@@ -93,5 +103,4 @@ If `dots pull` refuses because of local changes, keep them with `dots stash`, ru
 
 ## Notes
 - **Colors:** they come from the wallpaper. Changing the wallpaper (or dark/light mode) regenerates colors for the shell and bar, GTK, Qt, kitty (including tabs), Hyprland, Spotify, VS Code and mpv. Because of that, `gtk-4.0/gtk.css` and Spotify's `color.ini` change with every wallpaper switch; committing them is optional.
-- **Hardware:** the package list matches my laptop (Intel CPU and GPU drivers, `intel-ucode`). On other hardware, edit `packages-repo.txt` first.
 - **Secrets:** none are stored here. The shell keeps API keys in the system keyring.

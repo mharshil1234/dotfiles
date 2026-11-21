@@ -17,10 +17,10 @@ case ":$PATH:" in *":$HOME/.local/bin:"*) ;; *) export PATH="$HOME/.local/bin:$P
 # <<< Codex installer <<<
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/harshil/google-cloud-sdk/path.bash.inc' ]; then . '/home/harshil/google-cloud-sdk/path.bash.inc'; fi
+if [ -f "$HOME/google-cloud-sdk/path.bash.inc" ]; then . "$HOME/google-cloud-sdk/path.bash.inc"; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/home/harshil/google-cloud-sdk/completion.bash.inc' ]; then . '/home/harshil/google-cloud-sdk/completion.bash.inc'; fi
+if [ -f "$HOME/google-cloud-sdk/completion.bash.inc" ]; then . "$HOME/google-cloud-sdk/completion.bash.inc"; fi
 
 # Dotfiles repo (see ~/.dotfiles)
 alias dots='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
