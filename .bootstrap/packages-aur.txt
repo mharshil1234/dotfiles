@@ -1,0 +1,9 @@
+antigravity
+brave-bin
+catppuccin-gtk-theme-mocha
+google-chrome
+k6
+kirigami2
+mongodb-bin
+postman-bin
+zen-browser-bin
