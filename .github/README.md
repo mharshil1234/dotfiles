@@ -22,7 +22,7 @@ The repo is private, so `git clone` asks you to sign in. Use your GitHub usernam
 3. **Installs my official-repo packages** from `.bootstrap/packages-repo.txt`, skipping any that no longer exist.
 4. **Builds the desktop packages** from `.bootstrap/pkgbuilds/` (Hyprland, Quickshell, fonts, themes, portals, screenshot tools and so on).
 5. **Installs my AUR apps** from `.bootstrap/packages-aur.txt` (Chrome, Brave, Zen, Postman, …).
-6. **Creates the Python environment** the shell needs (`~/.local/state/quickshell/.venv`).
+6. **Creates the Python environment** the shell needs (`~/.local/state/quickshell/.venv`), and **installs Spicetify**. If Spotify has already been opened once, it also applies the MaterialYou theme.
 7. **Sets up the system:** `video`/`i2c`/`input` groups, `i2c-dev`, ydotool and Bluetooth.
 8. **Applies my tweaks:** power-profiles-daemon instead of TLP, the ufw firewall, reflector mirrors (India/Singapore), weekly package-cache cleanup, and the Plasma Login Manager.
 9. **Sets the theme defaults:** adw-gtk3-dark and the Bibata cursor.
@@ -38,6 +38,7 @@ The installer is safe to re-run: it skips anything already done and lists whatev
 3. **Auto-login to the lock screen:** run `kcmshell6 kcm_plasmalogin`, turn on automatic login for your user, and pick session **Hyprland**.
 4. **Snapshots:** run `sudo timeshift-launcher`, choose RSYNC on the root partition, exclude home folders, and schedule Daily (keep 5) and Weekly (keep 3).
 5. **Cisco Packet Tracer** needs a manual download from Cisco.
+6. **Spotify theme:** if the installer skipped it, open Spotify once and log in, close it, then run `spicetify backup apply`. Run that again after every Spotify update.
 
 ## What's in here
 

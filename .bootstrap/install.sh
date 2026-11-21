@@ -96,6 +96,16 @@ if [[ ! -x "$VENV/bin/python" ]]; then
 fi
 [[ -x "$VENV/bin/python" ]] && ok "venv at $VENV"
 
+# ── 6b. Spicetify (Spotify theming) ────────────────────────────────────
+step "Spicetify"
+yay -S --needed --noconfirm spicetify-cli >/dev/null 2>&1 && ok "spicetify-cli installed" || FAILED+=("spicetify-cli")
+SPOTIFY_DIR="$HOME/.local/share/spotify-launcher/install/usr/share/spotify"
+if command -v spicetify >/dev/null && [[ -d "$SPOTIFY_DIR" && -f "$HOME/.config/spotify/prefs" ]]; then
+    spicetify -q backup apply >/dev/null 2>&1 && ok "MaterialYou theme applied to Spotify" || FAILED+=("spicetify apply")
+else
+    warn "Spotify hasn't been opened yet, so the theme is applied later (see the list at the end)"
+fi
+
 # ── 7. System setup the shell needs ────────────────────────────────────
 step "Groups, modules and services"
 getent group i2c >/dev/null || sudo groupadd i2c
@@ -143,4 +153,7 @@ ${c_info}A few things to do by hand:${c_off}
   4. Snapshots:  sudo timeshift-launcher
        -> RSYNC, root partition, home excluded, Daily 5 + Weekly 3
   5. Cisco Packet Tracer isn't automated (it needs a manual download from Cisco).
+  6. Spotify theme (if the installer said it was skipped): open Spotify once and log in,
+     close it, then run:  spicetify backup apply
+     Re-run that after every Spotify update.
 EOF
