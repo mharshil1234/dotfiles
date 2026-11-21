@@ -1,0 +1,18 @@
+[user]
+	name = Harshil Maheshwari
+	email = mharshil1234@gmail.com
+[init]
+	defaultBranch = main
+[color]
+	ui = auto
+[alias]
+	st = status
+	co = checkout
+	br = branch
+	cm = commit
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
