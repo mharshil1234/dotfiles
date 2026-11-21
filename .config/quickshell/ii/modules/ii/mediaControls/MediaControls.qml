@@ -128,6 +128,11 @@ Scope {
                 anchors.fill: parent
                 spacing: -Appearance.sizes.elevationMargin // Shadow overlap okay
 
+                HoverHandler { // custom: keeps a hover-opened popup open while the pointer is on it
+                    onHoveredChanged: GlobalStates.mediaPopupHovered = hovered
+                }
+                Component.onDestruction: GlobalStates.mediaPopupHovered = false
+
                 Repeater {
                     model: ScriptModel {
                         values: root.meaningfulPlayers

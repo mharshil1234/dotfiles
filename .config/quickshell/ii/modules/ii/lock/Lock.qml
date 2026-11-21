@@ -59,6 +59,8 @@ LockScreen {
                 Quickshell.execDetached(["bash", "-c", batch])
             } else {
                 restoreTimer.start()
+                // Tell startup scripts the screen was unlocked (spotify-after-unlock.sh waits for this)
+                Quickshell.execDetached(["bash", "-c", "touch \"${XDG_RUNTIME_DIR:-/tmp}/ii-unlocked\""])
             }
         }
     }

@@ -9,7 +9,7 @@ import Quickshell.Widgets
 import Quickshell.Services.Mpris
 
 // Island bar media: album art, title/artist, thin progress line.
-// Left click = media popup (stock behavior), middle = play/pause, right/forward = next, back = previous.
+// Hover = media popup (click pins it open / closes it), middle = play/pause, right/forward = next, back = previous.
 MouseArea {
     id: root
     required property MprisPlayer player
@@ -24,10 +24,39 @@ MouseArea {
         const now = Date.now();
         if (now - lastClick < 350) return; // the click can arrive twice; ignore the echo
         lastClick = now;
-        if (event.button === Qt.LeftButton) GlobalStates.mediaControlsOpen = !GlobalStates.mediaControlsOpen;
+        if (event.button === Qt.LeftButton) {
+            if (GlobalStates.mediaControlsOpen && GlobalStates.mediaPopupByHover)
+                GlobalStates.mediaPopupByHover = false; // opened by hover: a click pins it open
+            else {
+                GlobalStates.mediaPopupByHover = false;
+                GlobalStates.mediaControlsOpen = !GlobalStates.mediaControlsOpen;
+            }
+        }
         else if (event.button === Qt.MiddleButton) player?.togglePlaying();
         else if (event.button === Qt.BackButton) player?.previous();
         else player?.next(); // right click / forward
+    }
+
+    // Hover to open the media popup; it closes shortly after the pointer leaves both the pill and the popup
+    hoverEnabled: true
+    onContainsMouseChanged: GlobalStates.mediaPillHovered = containsMouse
+    Component.onDestruction: GlobalStates.mediaPillHovered = false
+    Timer {
+        interval: 250
+        running: root.containsMouse && !GlobalStates.mediaControlsOpen
+        onTriggered: {
+            GlobalStates.mediaPopupByHover = true;
+            GlobalStates.mediaControlsOpen = true;
+        }
+    }
+    Timer {
+        interval: 350
+        running: GlobalStates.mediaControlsOpen && GlobalStates.mediaPopupByHover
+            && !GlobalStates.mediaPillHovered && !GlobalStates.mediaPopupHovered
+        onTriggered: {
+            GlobalStates.mediaControlsOpen = false;
+            GlobalStates.mediaPopupByHover = false;
+        }
     }
 
     Timer {
